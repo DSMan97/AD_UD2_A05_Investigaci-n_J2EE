@@ -46,17 +46,10 @@ public class UpdateServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
 
-            if (request.getParameter("id") == null) {
+            if (request.getParameter("nombre") == null) {
 
                 /* TODO output your page here. You may use following sample code. */
-                out.println("<!DOCTYPE html>");
-                out.println("<html>");
-                out.println("<head>");
-                out.println("<title>Servlet UpdateServlet</title>");
-                
-                out.println("<body>");
-                out.println("<form action='UpdateServlet' method='POST'>Escoga un actor y presiona el botón para eliminar un actor.");
-                out.println("<input type='submit' name='update' value='Modificar'/><br><br>");
+
                 List<Peliculas> l = aEJB.allPeliculas();
                 /* bucle para recorrer la lista que corresponda */
                 out.println("<select name='id'>");
@@ -66,35 +59,33 @@ public class UpdateServlet extends HttpServlet {
                 }
                 out.println("</select><br>");
                 out.println("Nombre:<br>\n" +
-                            "<input type='text' name='nombre'/><br>\n" +
-                            "</br>Fecha nacimiento:<br>\n" +
-                            "<input type='text' name='fnacimiento'/><br>\n" +
-                            "</br>Nacionalidad:<br>\n" +
-                            "<input type='text' name='nacionalidad'/><br><br>");
+                            "<input type='text' name='titulo'/><br>\n" +
+                            "</br>Fecha de lanzamiento:<br>\n" +
+                            "<input type='text' name='fecha'/><br>\n" +
+                            "</br>Presupuesto:<br>\n" +
+                            "<input type='text' name='presupuesto'/><br><br>");
                 out.println("</form>");
                 out.println("</body>");
                 out.println("</head>");
                 out.println("</html>");
             } else {
-                String id = request.getParameter("id");
-                int parse_codigo = Integer.parseInt(id);
-                String nombre = request.getParameter("nombre");
-                String fnacimiento = request.getParameter("fnacimiento");
+                String nombre = request.getParameter("titulo");
+                String fechalanzamiento = request.getParameter("fecha");
                 SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
                 Date fecha = null;
                 try {
-                    fecha = date.parse(fnacimiento);
+                    fecha = date.parse(fechalanzamiento);
                 } catch (ParseException ex) {
                     Logger.getLogger(InsertServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //arreglar esto
-                //double presupuesto = request.getParameter("Presupuesto");
+                
+               String presupuesto = request.getParameter("presupuesto");
+                double mPresupuesto = Double.parseDouble(presupuesto);
                
                 Peliculas pelis = new Peliculas();
-                pelis.setCodigo(parse_codigo);
                 pelis.setTitulo(nombre);
                 pelis.setFecha(fecha);
-                //pelis.setPresupuesto(presupuesto);
+                pelis.setPresupuesto(mPresupuesto);
                 aEJB.updatePelicula(pelis);
                 out.println("<!DOCTYPE html>");
                 out.println("<html>");
@@ -102,9 +93,6 @@ public class UpdateServlet extends HttpServlet {
                 out.println("<title>Servlet InsertServlet</title>");
                 out.println("<script>window.location='index.jsp'</script>");
                 out.println("<body>");
-                //out.println("<form action='index.jsp' method='POST'>Escoga un actor y presiona el botón para eliminar un actor.");
-                //out.println("<input type='submit' name='eliminar' value='UPDATE'/><br><br>");
-                //out.println("</form>");
                 out.println("</body>");
                 out.println("</head>");
                 out.println("</html>");

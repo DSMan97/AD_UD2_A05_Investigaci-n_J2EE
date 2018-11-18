@@ -51,7 +51,7 @@ public class DeleteServlet extends HttpServlet {
                 out.println("<head>");
                 out.println("<title>Servlet DeleteServlet</title>");
                 out.println("<body>");
-                out.println("<form action='DeleteServlet' method='POST'>Escoga una pelicula y presiona el botón para eliminar un actor.");
+                out.println("<form action='DeleteServlet' method='POST'>Escoga una pelicula y presiona el botón para eliminarla.");
                 out.println("<input type='submit' name='eliminar' value='Eliminar'/><br><br>");
                 List<Peliculas> l = aEJB.allPeliculas();
                 /* bucle para recorrer la lista que corresponda */
@@ -65,9 +65,9 @@ public class DeleteServlet extends HttpServlet {
                 out.println("</head>");
                 out.println("</html>");
             } else {
-                String valueRadio = request.getParameter("titulo");
-                int parse_codigo = Integer.parseInt(valueRadio);
-                aEJB.borrarPelicula(parse_codigo);
+                String title = request.getParameter("titulo");
+
+                aEJB.borrarPelicula(title);
                 
                 out.println("<script>window.location='index.jsp'</script>");
             }

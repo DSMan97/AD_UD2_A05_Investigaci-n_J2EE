@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modelo;
+package Servlets;
 
+import Modelo.Peliculas;
 import Session.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,16 +39,15 @@ public class SearchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String codigo = request.getParameter("codigo");
-        int parse_codigo = Integer.parseInt(codigo);
-        List<Peliculas> l = aEJB.buscarAllPecliculasporCodigo(parse_codigo);
+        String titulo = request.getParameter("nombre");
+        List<Peliculas> l = aEJB.buscarAllPecliculasporTitulo(titulo);
 
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InsertServlet</title>");
+            out.println("<title>Servlet Search</title>");
             for (int i = 0; i < l.size(); i++) {
                 out.println("<b>Codigo:</b>" + l.get(i).getCodigo()
                         + ", <b>Titulo: </b>" + l.get(i).getTitulo()

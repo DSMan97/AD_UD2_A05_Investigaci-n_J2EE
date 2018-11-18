@@ -9,7 +9,12 @@ import Modelo.Peliculas;
 import Session.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,23 +44,34 @@ public class InsertServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       try (PrintWriter out = response.getWriter()) {
-           out.println("<html>");
- out.println("<head>");
- out.println("<title>Prueba Servlet con EJB</title>");
- out.println("</head>");
- out.println("<body>");
- List<Peliculas> l = aEJB.allPeliculas();
-/* bucle para recorrer la lista que corresponda */
- for(int i = 0; i < l.size(); i++ ){
- out.println("<b>Actor:</b>"+ l.get(i).getTitulo()
-+", <b>Fecha de Lanzamiento </b>"+l.get(i).getFecha()
-+", <b>Fecha de Lanzamiento </b>"+l.get(i).getPresupuesto()
-+"<br>" );
- }
- out.println("</body>");
- out.println("</html>");
        
+       
+        String titulo = request.getParameter("titulo");
+        String fechalanzamiento = request.getParameter("fecha");
+        Date fecha = null;
+        try {
+            fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechalanzamiento);
+        } catch (ParseException ex) {
+            Logger.getLogger(InsertServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        String presupuesto = request.getParameter("presupuesto");
+        double mPresupuesto = Double.parseDouble(presupuesto);
+        Peliculas p = new Peliculas();
+        p.setCodigo(0);
+        p.setTitulo(titulo);
+        p.setFecha(fecha);
+        p.setPresupuesto(mPresupuesto);
+        aEJB.nuevaPelicula(p);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet InsertServlet</title>"); 
+            out.println("<script>window.location='index.jsp'</script>");
+            out.println("</head>");
+            out.println("</html>");
         }
     }
 

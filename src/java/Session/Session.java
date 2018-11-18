@@ -24,9 +24,9 @@ EntityManagerFactory emf;
 public List allPeliculas(){
  return emf.createEntityManager().createNamedQuery("Peliculas.findAll").getResultList();
 }
- public List buscarAllPecliculasporCodigo(int parse_codigo) {
+ public List buscarAllPecliculasporTitulo(String tittle) {
      
-         return emf.createEntityManager().createNamedQuery("Peliculas.findByCodigo").setParameter("codigo", parse_codigo).getResultList();
+         return emf.createEntityManager().createNamedQuery("Peliculas.findByTitulo").setParameter("titulo", tittle).getResultList();
     }
     
     public List allRepartos() {
@@ -36,21 +36,22 @@ public List allPeliculas(){
         emf.createEntityManager().persist(pelicula);
     }
     
-    public void borrarPelicula(int id) {
-        Peliculas pelicula;
+    public void borrarPelicula(String titulo) {
+
+       Peliculas pelicula;
         EntityManager em = emf.createEntityManager();
-        pelicula = em.find(Peliculas.class, id);
+        pelicula = em.find(Peliculas.class, titulo);
         em.remove(pelicula);
         
     }
-//TODO Ajustar para Pelicluas
-    public void updatePelicula(int id, String name, Date date, String nacionalidad) {
+
+    public void updatePelicula(int id, String name, Date date, Double presupuesto) {
         Peliculas pelicula;
         EntityManager em = emf.createEntityManager();
         pelicula = em.find(Peliculas.class, id);
         pelicula.setCodigo(id);
         pelicula.setFecha(date);
-        pelicula.setPresupuesto(id);
+        pelicula.setPresupuesto(presupuesto);
         pelicula.setTitulo(name);
         em.merge(pelicula);
         
