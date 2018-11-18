@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Peliculas. Obtiene todas las Peliculas con EJB </h1>
-        <form action="SelectServlet" method="POST">Presiona el botón para obtener los datos.
+        <form action="Servlet" method="POST">Presiona el botón para obtener los datos.
             <input type="submit" name="enviar" value="Listado"/>
         </form>
         </br>

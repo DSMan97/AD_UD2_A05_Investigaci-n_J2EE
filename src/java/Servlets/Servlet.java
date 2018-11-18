@@ -6,6 +6,7 @@
 package Servlets;
 
 
+
 import Modelo.Peliculas;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,8 +24,8 @@ import Session.Session;
  *
  * @author Guillermo Crespo, Javier Borreguero y Miguel Martinez
  */
-@WebServlet(name = "MyServlet", urlPatterns = {"/MyServlet"})
-public class SelectServlet extends HttpServlet {
+@WebServlet(name = "Servlet", urlPatterns = {"/Servlet"})
+public class Servlet extends HttpServlet {
 @EJB
  Session aEJB;
     /**
@@ -42,17 +43,17 @@ public class SelectServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
            out.println("<html>");
- out.println("<head>");
- out.println("<title>Prueba Servlet con EJB</title>");
- out.println("</head>");
- out.println("<body>");
- List<Peliculas> l = aEJB.allPeliculas();
+           out.println("<head>");
+           out.println("<title>Prueba Servlet con EJB</title>");
+           out.println("</head>");
+           out.println("<body>");
+            List<Peliculas> l = aEJB.allPeliculas();
 /* bucle para recorrer la lista que corresponda */
- for(int i = 0; i < 10; i++ ){
- out.println("<b>Actor:</b>"+ l.get(i).getTitulo()
-+", <b>Fecha de Lanzamiento </b>"+l.get(i).getFecha()
-+", <b>Fecha de Lanzamiento </b>"+l.get(i).getPresupuesto()
-+"<br>" );
+for(int i = 0; i < l.size(); i++ ){
+ out.println(" <b>Peliculas:</b>"+ l.get(i).getTitulo()
++", <b> Fecha de Lanzamiento </b>"+l.get(i).getFecha()
++", <b> Presupuesto </b>"+l.get(i).getPresupuesto()
++" <br>" );
  }
  out.println("</body>");
  out.println("</html>");

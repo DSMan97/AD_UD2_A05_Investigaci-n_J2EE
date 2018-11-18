@@ -22,13 +22,10 @@ public class Session {
 @PersistenceUnit
 EntityManagerFactory emf;
 public List allPeliculas(){
- return
-emf.createEntityManager().createNamedQuery
-("Peliculas.findAll").getResultList();
+ return emf.createEntityManager().createNamedQuery("Peliculas.findAll").getResultList();
 }
  public List buscarAllPecliculasporCodigo(int parse_codigo) {
-        //listactores =  emf.createEntityManager().createNamedQuery("Actores.findAll").getResultList();
-        //return listactores;
+     
          return emf.createEntityManager().createNamedQuery("Peliculas.findByCodigo").setParameter("codigo", parse_codigo).getResultList();
     }
     
