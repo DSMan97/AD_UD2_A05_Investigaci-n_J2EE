@@ -5,28 +5,31 @@
  */
 package Servlets;
 
-
-import Modelo.Actores;
+import Session.Session;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import Session.Sesiosn;
-
 
 /**
  *
- * @author DSMan
+ * @author Guillermo Crespo, Javier Borreguero y Miguel Martinez
  */
-@WebServlet(name = "MyServlet", urlPatterns = {"/MyServlet"})
-public class MyServlet extends HttpServlet {
-@EJB
- Sesiosn aEJB;
+@WebServlet(name = "InsertServlet", urlPatterns = {"/InsertServlet"})
+public class InsertServlet extends HttpServlet {
+    
+    @EJB
+    Session aEJB;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,26 +42,12 @@ public class MyServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-           out.println("<html>");
- out.println("<head>");
- out.println("<title>Prueba Servlet con EJB</title>");
- out.println("</head>");
- out.println("<body>");
- List<Actores> l = aEJB.findAll();
-/* bucle para recorrer la lista que corresponda */
- for(int i = 0; i < 10; i++ ){
- out.println("<b>Actor:</b>"+ l.get(i).getNombre()
-+", <b>Nacionalidad </b>"+l.get(i).getNacionalidad()
-+"<br>" );
- }
- out.println("</body>");
- out.println("</html>");
+        int codigoint = 0;
+       
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+  
     /**
      * Handles the HTTP <code>GET</code> method.
      *
